@@ -2,135 +2,77 @@
   "questions": [
     {
       "id": "question1",
-      "question_text": "1. What is your primary career goal upon completing your education?",
-      "choices": [
-        "Pursue further education (e.g., graduate school)",
-        "Secure a full-time job in my field of study",
-        "Start my own business or freelance",
-        "Undecided / Unsure",
-        "Explore different career paths"
-      ]
+      "question_text": "1. Are you a regular or irregular student?",
+      "choices": ["Regular", "Irregular"]
     },
     {
       "id": "question2",
-      "question_text": "2. Which industry or field are you most interested in pursuing a career in?",
-      "choices": [
-        "Technology",
-        "Healthcare",
-        "Finance",
-        "Education",
-        "Arts and Entertainment",
-        "Environmental Science",
-        "Marketing and Advertising",
-        "Law and Legal Services",
-        "Hospitality and Tourism",
-        "Manufacturing and Engineering"
-      ]
+      "question_text": "2. Are you stress right now?",
+      "choices": ["Yes", "No"]
     },
     {
       "id": "question3",
-      "question_text": "3. What factors are most important to you when considering a career?",
-      "choices": [
-        "Salary and benefits",
-        "Opportunities for advancement",
-        "Work-life balance",
-        "Job security",
-        "Impact and purpose",
-        "Flexibility and autonomy",
-        "Company culture",
-        "Location",
-        "Learning and growth opportunities",
-        "Job satisfaction",
-        "Social responsibility of the organization"
-      ]
+      "question_text": "3. How often do you experience stress?",
+      "choices": ["Rarely", "Occasionally", "Frequently", "Very Frequently"]
     },
     {
       "id": "question4",
-      "question_text": "4. How do you plan to gain relevant experience for your desired career?",
-      "choices": [
-        "Internships or co-op programs",
-        "Part-time jobs or volunteering",
-        "Research opportunities",
-        "Networking events and professional associations",
-        "Academic projects or coursework",
-        "Freelance work or side projects",
-        "Mentorship programs",
-        "Online courses or certifications"
-      ]
+      "question_text": "4. How does stress typically affect your daily life and productivity?",
+      "choices": ["Negatively", "Positively", "No Impact"]
     },
     {
       "id": "question5",
-      "question_text": "5. What specific career goals or milestones do you aim to achieve within the next 5 years?",
+      "question_text": "5. What are the main sources of stress in your life? (Select all that apply)",
       "choices": [
-        "Advance to a higher position in my current field",
-        "Transition to a new career path",
-        "Start my own business or entrepreneurial venture",
-        "Acquire additional certifications or qualifications",
-        "Undecided / Unsure",
-        "Lead a team or project"
+        "Work",
+        "School",
+        "Relationships",
+        "Finances",
+        "Health",
+        "Daily hassles (traffic, errands, etc.)",
+        "Family"
       ]
     },
-
     {
       "id": "question6",
-      "question_text": "6. How important is ongoing professional development and learning for your career aspirations?",
+      "question_text": "6. When feeling stressed, what are the best coping mechanisms you typically use? (Select all that apply)",
       "choices": [
-        "Very important",
-        "Somewhat important",
-        "Neutral",
-        "Not important at all",
-        "Essential for staying competitive"
+        "Physical activity (exercise, yoga)",
+        "Relaxation techniques (deep breathing, meditation)",
+        "Spending time in nature",
+        "Talking to a friend or family member",
+        "Listening to music",
+        "Engaging in hobbies",
+        "Watching TV/movies",
+        "Using social media",
+        "Eating",
+        "Shopping"
       ]
     },
     {
       "id": "question7",
-      "question_text": "7. What challenges do you anticipate encountering in achieving your career goals?",
-      "choices": [
-        "Limited job opportunities in my desired field",
-        "Lack of relevant experience",
-        "Financial constraints",
-        "Balancing work and personal commitments",
-        "Discrimination or bias in the workplace",
-        "Technological advancements impacting job prospects"
-      ]
+      "question_text": "7. How effective do you find these coping mechanisms in reducing your stress?",
+      "choices": ["Not Effective", "Somewhat Effective", "Very Effective"]
     },
     {
       "id": "question8",
-      "question_text": "8. How do you envision your career contributing to your overall life satisfaction and fulfillment?",
+      "question_text": "8. How important is it for you to have a healthy work-life balance in managing stress?",
       "choices": [
-        "It is my primary source of fulfillment",
-        "It is one aspect contributing to my overall satisfaction",
-        "Neutral / Unsure",
-        "It is not a significant factor in my overall satisfaction",
-        "My career aligns with my personal values and passions"
+        "Not Important at all",
+        "Somewhat Important",
+        "Moderately Important",
+        "Very Important"
       ]
     },
     {
       "id": "question9",
-      "question_text": "9. What support or resources do you feel would be most beneficial in helping you achieve your career goals?",
-      "choices": [
-        "Career counseling or mentorship programs",
-        "Networking opportunities with professionals in my desired field",
-        "Access to job/internship postings and recruitment events",
-        "Financial assistance or scholarships",
-        "Workshops or seminars on career development skills",
-        "Industry-specific training programs",
-        "Support for entrepreneurship and startups",
-        "Peer support groups or communities"
-      ]
+      "question_text": "9. How often do you seek support from others when feeling stressed?",
+      "choices": ["Rarely", "Sometimes", "Often", "Always"]
     },
     {
       "id": "question10",
-      "question_text": "10. How do you plan to balance your career aspirations with other aspects of your life, such as family, hobbies, and personal interests?",
-      "choices": [
-        "Prioritize my career above other aspects of life",
-        "Strive for a balance between career and personal life",
-        "Not sure / Haven't thought about it yet",
-        "Focus equally on career and personal growth",
-        "Incorporate leisure and hobbies into my career plan",
-        "Seek flexible work arrangements for better balance",
-        "Ensure family and relationships are a priority"
-      ]
+      "question_text": "10. Have you ever attended a stress management workshop or training program?",
+      "choices": ["Yes", "No"]
     }
   ]
 }

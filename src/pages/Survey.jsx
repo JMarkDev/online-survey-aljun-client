@@ -13,8 +13,10 @@ const Survey = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     fullname: "",
+    email: "",
     course: "",
     gender: "",
+    year_level: "",
     answers: [],
   });
 
@@ -150,7 +152,7 @@ const Survey = () => {
           <Loading />
         </div>
       )}
-      <div className="">
+      <div className="bg-gradient-to-r from-blue-200 to-cyan-200 p-4">
         <ToastContainer
           position="top-right"
           autoClose={3000}
@@ -164,7 +166,7 @@ const Survey = () => {
           theme="light"
         />
         <ToastContainer />
-        <div className="container bg-gray-300 max-w-2xl my-4 pb-4 m-auto">
+        <div className="container bg-gradient-to-r from-teal-200 to-teal-500 max-w-2xl pb-4 m-auto">
           <header className="bg-gray-700 text-white py-6 px-4 rounded-t-lg">
             <h1 className="text-lg md:text-2xl font-bold leading-tight">
               Understanding the Extracurricular Interests of WMSU Students
@@ -376,32 +378,10 @@ const Survey = () => {
               </div>
             ))}
 
-            <div className="mt-4 flex items-center">
-              <input
-                type="checkbox"
-                id="terms"
-                checked={termsAccepted}
-                onChange={handleTermsCheck}
-                className="cursor-pointer h-4 w-4 accent-blue-600 form-checkbox"
-              />
-              <label htmlFor="terms" className="ml-2">
-                I read and accept the{" "}
-                <Link
-                  to="/terms-condition"
-                  className="text-blue-600 border-blue-700 border-b "
-                >
-                  Terms & Condition
-                </Link>
-              </label>
-            </div>
             <button
-              disabled={!termsAccepted} // Disable button if terms are not accepted or if loading is true
               type="submit"
-              className={`${
-                !termsAccepted
-                  ? "cursor-not-allowed opacity-50"
-                  : "cursor-pointer"
-              } relative items-center w-full justify-center flex my-4 btn bg-blue-500 hover:bg-blue-600 text-white font-semibold px-12 py-2 rounded-md shadow-md transition duration-300 ease-in-out`}
+              className="relative items-center w-full justify-center flex my-4 btn bg-blue-500 hover:bg-blue-600 text-white font-semibold px-12 py-2 rounded-md shadow-md transition duration-300 ease-in-out`}
+            "
             >
               Submit{" "}
             </button>
