@@ -1,22 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Doughnut from "../components/DoughnutQ1";
+import DoughnutByCourse from "../components/DoughnutByCourse";
 import LineChart from "../components/LineChart";
 import api from "../api/api";
 import BarChartQ9 from "../components/BarChartQ9";
 import DoughnutQuestion3 from "../components/DoughnutQuestion3";
 import BarChartQ4 from "../components/BarchartQ5";
 import BarChartQ6 from "../components/BarChartQ6";
-
+import PieChartQ10 from "../components/PieChartQ10";
 import questions from "../questions/question.json";
 
 const Dashboard = () => {
   const [surveyData, setSurveyData] = useState([]);
   const [responseCount, setResponseCount] = useState(0);
+  const [regular, setRegular] = useState(0);
+  const [irregular, setIrregular] = useState(0);
+
+  useEffect(() => {
+    const getStudentStatus = () => {
+      let regularCount = 0;
+      let irregularCount = 0;
+      surveyData.forEach((response) => {
+        const studentStatus = response.answers.question1[0];
+
+        if (studentStatus === "Regular") {
+          regularCount++;
+        } else if (studentStatus === "Irregular") {
+          irregularCount++;
+        }
+      });
+      setRegular(regularCount);
+      setIrregular(irregularCount);
+    };
+
+    getStudentStatus();
+  }, [surveyData]);
+
   const cardsData = [
     { title: "Total Responses", count: responseCount },
+    { title: "Irregular Students", count: irregular },
+    { title: "Regular Students", count: regular },
     { title: "Total Course", count: 8 },
-    { title: "Total Questions", count: 10 },
   ];
 
   useEffect(() => {
@@ -153,107 +178,153 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="bg-gray-200 shadow-lg p-4 flex justify-between">
-        <h1 className="text-2xl font-bold ml-10">Survey Dashboard</h1>
-        <Link
-          className="bg-blue-500 hover:bg-blue-700 text-white px-5 py-2 flex items-center rounded-lg"
-          to={"/survey"}
-        >
-          Survey Form
-        </Link>
-      </div>
-      <div className="max-w-5xl m-auto ">
-        <div className="grid md:grid-cols-3 gap-10 mt-5 px-20">
-          {cardsData.map((card, index) => (
-            <div key={index} className="bg-white rounded-lg p-6 shadow-md">
-              <h1 className="text-lg font-semibold text-gray-800 mb-2">
-                {card.title}
-              </h1>
-              <h1 className="text-3xl font-bold text-blue-500">{card.count}</h1>
-            </div>
-          ))}
+      <div className="pb-10 bg-gradient-to-r from-blue-200 to-cyan-200">
+        <div className=" bg-gradient-to-r from-blue-200 to-cyan-200 shadow-lg p-4 flex justify-between">
+          <h1 className="text-2xl font-bold ml-10">Survey Dashboard</h1>
+          <Link
+            className="bg-blue-500 hover:bg-blue-700 text-white px-5 py-2 flex items-center rounded-lg"
+            to={"/survey"}
+          >
+            Survey Form
+          </Link>
         </div>
-      </div>
-      <div className="max-w-5xl mt-10 m-auto">
-        <div className="bg-white rounded-lg p-6 shadow-md">
-          <h1 className="text-lg font-semibold text-gray-800 mb-2">
-            Survey Responses
-          </h1>
-          <LineChart surveyData={surveyData} />
-        </div>
-      </div>
-      <div className="max-w-5xl mt-10 m-auto">
-        <div className="bg-white rounded-lg shadow-md">
-          <div className="flex justify-between items-center">
-            <h1 className="text-lg p-6 font-semibold text-gray-800 mb-2">
-              Current Stress Level
-            </h1>
-            <button
-              onClick={downloadCSV}
-              className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
-            >
-              Download CSV
-            </button>
+        <div className="max-w-5xl m-auto ">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-5 px-4">
+            {cardsData.map((card, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 shadow-md">
+                <h1 className="text-lg font-semibold text-gray-800 mb-2">
+                  {card.title}
+                </h1>
+                <h1 className="text-3xl font-bold text-blue-500">
+                  {card.count}
+                </h1>
+              </div>
+            ))}
           </div>
-
-          <Doughnut
-            surveyData={surveyData}
-            data={surveyData}
-            calculateTotalOccurrences={calculateTotalOccurrences}
-          />
         </div>
-      </div>
-      <div className="max-w-5xl mt-10 m-auto">
-        <div className="bg-white rounded-lg p-6 shadow-md ">
-          <div className="flex justify-between">
+        <div className="max-w-5xl mt-10 m-auto">
+          <div className="bg-white rounded-lg p-6 shadow-md">
             <h1 className="text-lg font-semibold text-gray-800 mb-2">
-              Frequency of Stress Experience
+              Survey Responses
             </h1>
-            <button
-              onClick={downloadCSVDoughnut2}
-              className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
-            >
-              Download CSV
-            </button>
+            <LineChart surveyData={surveyData} />
           </div>
+        </div>
+        <div className="max-w-5xl mt-10 m-auto">
+          <div className="bg-white rounded-lg shadow-md">
+            <div className="flex justify-between items-center">
+              <h1 className="text-lg p-6 font-semibold text-gray-800 mb-2">
+                Current Stress Level
+              </h1>
+              <button
+                onClick={downloadCSV}
+                className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
+              >
+                Download CSV
+              </button>
+            </div>
 
-          <DoughnutQuestion3
-            surveyData={surveyData}
-            calculateTotalOccurrences={calculateTotalOccurrences}
-          />
+            <Doughnut
+              surveyData={surveyData}
+              data={surveyData}
+              calculateTotalOccurrences={calculateTotalOccurrences}
+            />
+          </div>
         </div>
-      </div>
-      <div className="max-w-5xl mt-10 m-auto">
-        <div className="bg-white rounded-lg p-6 shadow-md">
-          <h1 className="text-lg font-semibold text-gray-800 mb-2">
-            Sources of Stress in Life
-          </h1>
-          <BarChartQ4
-            surveyData={surveyData}
-            calculateTotalOccurrences={calculateTotalOccurrences}
-          />
+        <div className="max-w-5xl mt-10 m-auto">
+          <div className="bg-white rounded-lg shadow-md">
+            <div className="flex justify-between items-center">
+              <h1 className="text-lg p-6 font-semibold text-gray-800 mb-2">
+                Current Stress Level By Course
+              </h1>
+              <button
+                onClick={downloadCSV}
+                className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
+              >
+                Download CSV
+              </button>
+            </div>
+
+            <DoughnutByCourse
+              surveyData={surveyData}
+              data={surveyData}
+              calculateTotalOccurrences={calculateTotalOccurrences}
+            />
+          </div>
         </div>
-      </div>
-      <div className="max-w-5xl mt-10 m-auto">
-        <div className="bg-white rounded-lg p-6 shadow-md">
-          <h1 className="text-lg font-semibold text-gray-800 mb-2">
-            Preferred Coping Mechanisms for Stress
-          </h1>
-          <BarChartQ6
-            surveyData={surveyData}
-            calculateTotalOccurrences={calculateTotalOccurrences}
-          />
+        <div className="max-w-5xl mt-10 m-auto">
+          <div className="bg-white rounded-lg shadow-md">
+            <div className="flex justify-between items-center">
+              <h1 className="text-lg p-6 font-semibold text-gray-800 mb-2">
+                Attend stress management workshop or training program By Course
+              </h1>
+              <button
+                onClick={downloadCSV}
+                className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
+              >
+                Download CSV
+              </button>
+            </div>
+
+            <PieChartQ10
+              surveyData={surveyData}
+              data={surveyData}
+              calculateTotalOccurrences={calculateTotalOccurrences}
+            />
+          </div>
         </div>
-      </div>
-      <div className="max-w-5xl mt-10 m-auto">
-        <div className="bg-white rounded-lg p-6 shadow-md">
-          <h1 className="text-lg font-semibold text-gray-800 mb-2">
-            Frequency of Seeking Support When Stressed
-          </h1>
-          <BarChartQ9
-            surveyData={surveyData}
-            calculateTotalOccurrences={calculateTotalOccurrences}
-          />
+        <div className="max-w-5xl mt-10 m-auto">
+          <div className="bg-white rounded-lg p-6 shadow-md ">
+            <div className="flex justify-between">
+              <h1 className="text-lg font-semibold text-gray-800 mb-2">
+                Frequency of Stress Experience
+              </h1>
+              <button
+                onClick={downloadCSVDoughnut2}
+                className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
+              >
+                Download CSV
+              </button>
+            </div>
+
+            <DoughnutQuestion3
+              surveyData={surveyData}
+              calculateTotalOccurrences={calculateTotalOccurrences}
+            />
+          </div>
+        </div>
+        <div className="max-w-5xl mt-10 m-auto">
+          <div className="bg-white rounded-lg p-6 shadow-md">
+            <h1 className="text-lg font-semibold text-gray-800 mb-2">
+              Sources of Stress in Life
+            </h1>
+            <BarChartQ4
+              surveyData={surveyData}
+              calculateTotalOccurrences={calculateTotalOccurrences}
+            />
+          </div>
+        </div>
+        <div className="max-w-5xl mt-10 m-auto">
+          <div className="bg-white rounded-lg p-6 shadow-md">
+            <h1 className="text-lg font-semibold text-gray-800 mb-2">
+              Preferred Coping Mechanisms for Stress
+            </h1>
+            <BarChartQ6
+              surveyData={surveyData}
+              calculateTotalOccurrences={calculateTotalOccurrences}
+            />
+          </div>
+        </div>
+        <div className="max-w-5xl mt-10 m-auto">
+          <div className="bg-white rounded-lg p-6 shadow-md">
+            <h1 className="text-lg font-semibold text-gray-800 mb-2">
+              Frequency of Seeking Support When Stressed
+            </h1>
+            <BarChartQ9
+              surveyData={surveyData}
+              calculateTotalOccurrences={calculateTotalOccurrences}
+            />
+          </div>
         </div>
       </div>
     </>
