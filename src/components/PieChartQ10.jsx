@@ -3,7 +3,6 @@ import Chart from "react-apexcharts";
 import questions from "../questions/question.json";
 
 export default function ApexChart({ surveyData }) {
-  console.log(surveyData);
   const courses = [
     "BSCS",
     "ACT",
@@ -20,6 +19,7 @@ export default function ApexChart({ surveyData }) {
     const filteredData = surveyData.filter((entry) => {
       return entry.course === course && entry.answers.question10[0] === "Yes";
     });
+
     return filteredData.length;
   };
 

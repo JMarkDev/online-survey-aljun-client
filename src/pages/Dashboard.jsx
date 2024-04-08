@@ -80,7 +80,7 @@ const Dashboard = () => {
   function downloadCSV() {
     const headers = ["Category", "Total"];
 
-    const question1 = questions.questions[0];
+    const question1 = questions.questions[1];
     const questionId = question1.id;
     const answerTexts = question1.choices;
 
@@ -105,6 +105,41 @@ const Dashboard = () => {
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
     link.download = "data.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function downloadCSVDonut1() {
+    const headers = [
+      "Full Name",
+      "Email",
+      "Age",
+      "Course",
+      "Year Level",
+      "Gender",
+      "Stress",
+    ];
+    const dataRows = surveyData.map((response) => {
+      return [
+        response.fullname,
+        response.email,
+        response.age,
+        response.course,
+        response.year_level,
+        response.gender,
+        response.answers.question2[0],
+      ];
+    });
+
+    const csvContent = [headers, ...dataRows]
+      .map((row) => row.join(","))
+      .join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "response.csv";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -143,23 +178,27 @@ const Dashboard = () => {
     document.body.removeChild(link);
   }
 
-  function downloadCSVQ6() {
-    const headers = ["Category", "Total"];
-
-    const question6 = questions.questions[5];
-    const questionId = question6.id;
-    const answerTexts = question6.choices;
-
-    // Calculate total occurrences for each answer text in the question
-    const series = answerTexts.map((answerText) =>
-      calculateTotalOccurrences(questionId, answerText)
-    );
-
-    // Combine categories and totals into an array of arrays (rows)
-    const dataRows = answerTexts.map((answerText, index) => [
-      answerText,
-      series[index],
-    ]);
+  const downloadCsvPieChart = () => {
+    const headers = [
+      "Full Name",
+      "Email",
+      "Age",
+      "Course",
+      "Year Level",
+      "Gender",
+      "attended a stress management",
+    ];
+    const dataRows = surveyData.map((response) => {
+      return [
+        response.fullname,
+        response.email,
+        response.age,
+        response.course,
+        response.year_level,
+        response.gender,
+        response.answers.question10[0],
+      ];
+    });
 
     // Prepare CSV content
     const csvContent = [headers, ...dataRows.map((row) => row.join(","))].join(
@@ -174,7 +213,7 @@ const Dashboard = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }
+  };
 
   return (
     <>
@@ -217,7 +256,7 @@ const Dashboard = () => {
                 Current Stress Level
               </h1>
               <button
-                onClick={downloadCSV}
+                onClick={downloadCSVDonut1}
                 className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
               >
                 Download CSV
@@ -238,7 +277,7 @@ const Dashboard = () => {
                 Current Stress Level By Course
               </h1>
               <button
-                onClick={downloadCSV}
+                onClick={downloadCSVDonut1}
                 className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
               >
                 Download CSV
@@ -259,7 +298,7 @@ const Dashboard = () => {
                 Attend stress management workshop or training program By Course
               </h1>
               <button
-                onClick={downloadCSV}
+                onClick={downloadCsvPieChart}
                 className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
               >
                 Download CSV
