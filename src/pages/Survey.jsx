@@ -15,20 +15,17 @@ const Survey = () => {
     fullname: "",
     email: "",
     course: "",
+    age: "",
     gender: "",
-    year_level: "",
     answers: [],
   });
 
   const [fullnameError, setFullnameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [ageError, setAgeError] = useState("");
   const [courseError, setCourseError] = useState("");
   const [genderError, setGenderError] = useState("");
   const [answerError, setAnswerError] = useState("");
-
-  // console.log(values.answers);
-  const handleTermsCheck = (event) => {
-    setTermsAccepted(event.target.checked);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +35,7 @@ const Survey = () => {
     setCourseError("");
     setGenderError("");
     setAnswerError("");
+    setEmailError("");
 
     // Check if all questions have been answered
     const unansweredQuestions = questions.questions.filter(
@@ -77,6 +75,12 @@ const Survey = () => {
           switch (error.path) {
             case "fullname":
               setFullnameError(error.msg);
+              break;
+            case "email":
+              setEmailError(error.msg);
+              break;
+            case "age":
+              setAgeError(error.msg);
               break;
             case "course":
               setCourseError(error.msg);
@@ -128,10 +132,6 @@ const Survey = () => {
           },
         }));
       } else {
-        if (selectedAnswers.length >= 3) {
-          toast.error("You can only select 3 choices.");
-          return;
-        }
         // If not selected, add it
         const newAnswers = [...selectedAnswers, choice];
         setValues((prevValues) => ({
@@ -166,11 +166,10 @@ const Survey = () => {
           theme="light"
         />
         <ToastContainer />
-        <div className="container bg-gradient-to-r from-teal-200 to-teal-500 max-w-2xl pb-4 m-auto">
-          <header className="bg-gray-700 text-white py-6 px-4 rounded-t-lg">
-            <h1 className="text-lg md:text-2xl font-bold leading-tight">
-              Understanding the Extracurricular Interests of WMSU Students
-              alongside their Academic Endeavors.
+        <div className="container rounded-t-lg bg-white max-w-4xl pb-4 m-auto">
+          <header className="border-gray-300 border-b py-6 px-4 rounded-t-lg">
+            <h1 className="text-lg text-center md:text-2xl font-bold leading-tight">
+              Stress Survey from WMSU ESU Pagadian
             </h1>
           </header>
 
@@ -203,7 +202,7 @@ const Survey = () => {
                         fullname: e.target.value,
                       })
                     }
-                    placeholder="Full Name"
+                    placeholder="Enter your Full Name"
                     className={`block w-full border py-2 px-2 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md ${
                       fullnameError ? "border-red-600" : ""
                     }`}
@@ -213,7 +212,63 @@ const Survey = () => {
                   <div className="text-red-600 text-sm">{fullnameError}</div>
                 )}
               </div>
-              <div className="name flex flex-col mt-2">
+              <div className="mt-4">
+                <label
+                  htmlFor="name"
+                  className="block text-md font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <div className="flex flex-col items-start">
+                  <input
+                    type="text"
+                    name="email"
+                    value={values.email}
+                    onChange={(e) =>
+                      setValues({
+                        ...values,
+                        email: e.target.value,
+                      })
+                    }
+                    placeholder="Enter your Email"
+                    className={`block w-full border py-2 px-2 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md ${
+                      emailError ? "border-red-600" : ""
+                    }`}
+                  />
+                </div>
+                {emailError && (
+                  <div className="text-red-600 text-sm">{emailError}</div>
+                )}
+              </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="name"
+                  className="block text-md font-medium text-gray-700"
+                >
+                  Age
+                </label>
+                <div className="flex flex-col items-start">
+                  <input
+                    type="number"
+                    name="age"
+                    value={values.age}
+                    onChange={(e) =>
+                      setValues({
+                        ...values,
+                        age: e.target.value,
+                      })
+                    }
+                    placeholder="Enter your Age"
+                    className={`block w-full border py-2 px-2 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md ${
+                      ageError ? "border-red-600" : ""
+                    }`}
+                  />
+                </div>
+                {ageError && (
+                  <div className="text-red-600 text-sm">{ageError}</div>
+                )}
+              </div>
+              <div className="name flex flex-col mt-4">
                 <label
                   htmlFor="course"
                   className="block text-md font-medium text-gray-700"
@@ -270,7 +325,7 @@ const Survey = () => {
                 {courseError && (
                   <div className="text-red-600 text-sm">{courseError}</div>
                 )}
-                <div className="mt-2">
+                <div className="mt-4">
                   <label
                     htmlFor="gender"
                     className="block text-md font-medium text-gray-700"
@@ -330,7 +385,7 @@ const Survey = () => {
             </h1>
             {questions.questions.map((question) => (
               <div
-                className="relative mt-5 bg-white p-5 rounded-lg hover:shadow-xl"
+                className="relative mt-5 bg-white p-5 rounded-lg hover:shadow-xl border-gray-300 border"
                 key={question.id}
               >
                 <label
@@ -339,11 +394,6 @@ const Survey = () => {
                 >
                   {question.question_text}
                 </label>
-                {question.choices.length > 5 && (
-                  <p className=" text-red-500 text-sm mt-[-5px] py-2">
-                    Please choose at least 3 options.
-                  </p>
-                )}
                 <div className="options">
                   {question.choices.map((choice, choiceIndex) => (
                     <div
