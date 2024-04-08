@@ -6,10 +6,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../api/api";
 import Loading from "../components/loading/Loading";
+import TermsCondition from "./TermsCondition";
+import Thankyou from "./Thankyou";
 
 const Survey = () => {
   const [loading, setLoading] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [modal, setModal] = useState(true);
+  const [thankyou, setThankyou] = useState(false);
   const navigate = useNavigate();
   const [values, setValues] = useState({
     fullname: "",
@@ -17,14 +20,20 @@ const Survey = () => {
     course: "",
     age: "",
     gender: "",
+    year_level: "",
     answers: [],
   });
+
+  const closeModal = () => {
+    setModal(false);
+  };
 
   const [fullnameError, setFullnameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [ageError, setAgeError] = useState("");
   const [courseError, setCourseError] = useState("");
   const [genderError, setGenderError] = useState("");
+  const [yearLevelError, setYearLevelError] = useState("");
   const [answerError, setAnswerError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -36,6 +45,8 @@ const Survey = () => {
     setGenderError("");
     setAnswerError("");
     setEmailError("");
+    setAgeError("");
+    setYearLevelError("");
 
     // Check if all questions have been answered
     const unansweredQuestions = questions.questions.filter(
@@ -58,11 +69,11 @@ const Survey = () => {
 
       if (response.data.status === "success") {
         toast.success("Survey submitted successfully");
+        setThankyou(true);
         setTimeout(() => {
           navigate("/Dashboard");
           setLoading(false);
-        }, 2000);
-        setFormSubmitted(true);
+        }, 3000);
       }
     } catch (error) {
       setLoading(false);
@@ -86,6 +97,9 @@ const Survey = () => {
               setCourseError(error.msg);
               break;
             case "gender":
+              setGenderError(error.msg);
+              break;
+            case "year_level":
               setGenderError(error.msg);
               break;
             case "answers":
@@ -152,6 +166,8 @@ const Survey = () => {
           <Loading />
         </div>
       )}
+      {thankyou && <Thankyou />}
+      {modal && <TermsCondition openModal={closeModal} />}
       <div className="bg-gradient-to-r from-blue-200 to-cyan-200 p-4">
         <ToastContainer
           position="top-right"
@@ -325,6 +341,45 @@ const Survey = () => {
                 {courseError && (
                   <div className="text-red-600 text-sm">{courseError}</div>
                 )}
+                <div className="name flex flex-col mt-4">
+                  <label
+                    htmlFor="course"
+                    className="block text-md font-medium text-gray-700"
+                  >
+                    Year Level
+                  </label>
+                  <div className="relative inline-block w-full">
+                    <select
+                      name="year_levevl"
+                      id="year"
+                      value={values.year_level}
+                      onChange={(e) =>
+                        setValues({ ...values, year_level: e.target.value })
+                      }
+                      className={`block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow-md leading-tight focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 ${
+                        yearLevelError ? "border-red-600" : ""
+                      }`}
+                    >
+                      <option value="">Select Year Level</option>
+                      <option value="1st Year">1ST YEAR</option>
+                      <option value="2nd Year">2ND YEAR</option>
+                      <option value="3rd Year">3RD YEAR</option>
+                      <option value="4th Year">4TH YEAR</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg
+                        className="fill-current h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M5 7l5 5 5-5z" />
+                      </svg>
+                    </div>
+                  </div>
+                  {yearLevelError && (
+                    <div className="text-red-600 text-sm">{yearLevelError}</div>
+                  )}
+                </div>
                 <div className="mt-4">
                   <label
                     htmlFor="gender"

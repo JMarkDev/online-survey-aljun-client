@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
-import api from "../api/api";
 import questions from "../questions/question.json";
 
 const BarChart = ({ calculateTotalOccurrences, surveyData }) => {
@@ -9,9 +8,9 @@ const BarChart = ({ calculateTotalOccurrences, surveyData }) => {
   useEffect(() => {
     // Calculate series only when surveyData changes
     const calculateSeries = () => {
-      const question2 = questions.questions[1];
-      const questionId = question2.id;
-      const answerTexts = question2.choices;
+      const question = questions.questions[8];
+      const questionId = question.id;
+      const answerTexts = question.choices;
 
       const newSeries = answerTexts.map((answerText) =>
         calculateTotalOccurrences(questionId, answerText)
@@ -57,7 +56,7 @@ const BarChart = ({ calculateTotalOccurrences, surveyData }) => {
         show: false,
       },
       xaxis: {
-        categories: questions.questions[1].choices,
+        categories: questions.questions[8].choices,
         labels: {
           style: {
             colors: colorList,

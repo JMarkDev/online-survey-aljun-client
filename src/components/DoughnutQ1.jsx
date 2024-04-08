@@ -5,7 +5,7 @@ import questions from "../questions/question.json";
 export default function ApexChart({ calculateTotalOccurrences, surveyData }) {
   // Retrieve question details from questions.json (assuming question1 is the first question)
 
-  const question1 = questions.questions[0];
+  const question1 = questions.questions[1];
   const questionId = question1.id;
   const answerTexts = question1.choices;
 

@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import Doughnut from "../components/DoughnutQ1";
 import LineChart from "../components/LineChart";
 import api from "../api/api";
-import ApexChart from "../components/BarChartQ2";
+import BarChartQ9 from "../components/BarChartQ9";
 import DoughnutQuestion3 from "../components/DoughnutQuestion3";
-import BarChartQ4 from "../components/BarchartQ4";
-import DoughtnutQ6 from "../components/DoughnutQ6";
+import BarChartQ4 from "../components/BarchartQ5";
+import BarChartQ6 from "../components/BarChartQ6";
+
 import questions from "../questions/question.json";
 
 const Dashboard = () => {
@@ -185,7 +186,7 @@ const Dashboard = () => {
         <div className="bg-white rounded-lg shadow-md">
           <div className="flex justify-between items-center">
             <h1 className="text-lg p-6 font-semibold text-gray-800 mb-2">
-              Primary career goal upon completing education
+              Current Stress Level
             </h1>
             <button
               onClick={downloadCSV}
@@ -203,21 +204,10 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="max-w-5xl mt-10 m-auto">
-        <div className="bg-white rounded-lg p-6 shadow-md">
-          <h1 className="text-lg font-semibold text-gray-800 mb-2">
-            Industry or field are most interested in pursuing a career
-          </h1>
-          <ApexChart
-            surveyData={surveyData}
-            calculateTotalOccurrences={calculateTotalOccurrences}
-          />
-        </div>
-      </div>
-      <div className="max-w-5xl mt-10 m-auto">
         <div className="bg-white rounded-lg p-6 shadow-md ">
           <div className="flex justify-between">
             <h1 className="text-lg font-semibold text-gray-800 mb-2">
-              Most important factors when considering a career
+              Frequency of Stress Experience
             </h1>
             <button
               onClick={downloadCSVDoughnut2}
@@ -236,7 +226,7 @@ const Dashboard = () => {
       <div className="max-w-5xl mt-10 m-auto">
         <div className="bg-white rounded-lg p-6 shadow-md">
           <h1 className="text-lg font-semibold text-gray-800 mb-2">
-            Methods for Gaining Relevant Career Experience
+            Sources of Stress in Life
           </h1>
           <BarChartQ4
             surveyData={surveyData}
@@ -246,20 +236,21 @@ const Dashboard = () => {
       </div>
       <div className="max-w-5xl mt-10 m-auto">
         <div className="bg-white rounded-lg p-6 shadow-md">
-          <div className="flex justify-between items-center">
-            <h1 className="text-lg font-semibold text-gray-800 mb-2">
-              Importance Professional Development and Learning for Career
-              Aspirations
-            </h1>
-            <button
-              onClick={downloadCSVQ6}
-              className="mr-4 text-sm bg-blue-600 hover:bg-blue-800 text-white h-10 rounded-lg px-4"
-            >
-              Download CSV
-            </button>
-          </div>
-
-          <DoughtnutQ6
+          <h1 className="text-lg font-semibold text-gray-800 mb-2">
+            Preferred Coping Mechanisms for Stress
+          </h1>
+          <BarChartQ6
+            surveyData={surveyData}
+            calculateTotalOccurrences={calculateTotalOccurrences}
+          />
+        </div>
+      </div>
+      <div className="max-w-5xl mt-10 m-auto">
+        <div className="bg-white rounded-lg p-6 shadow-md">
+          <h1 className="text-lg font-semibold text-gray-800 mb-2">
+            Frequency of Seeking Support When Stressed
+          </h1>
+          <BarChartQ9
             surveyData={surveyData}
             calculateTotalOccurrences={calculateTotalOccurrences}
           />
