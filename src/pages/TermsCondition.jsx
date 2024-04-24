@@ -34,7 +34,8 @@ const TermsCondition = ({ openModal }) => {
           </p>
           <p className="text-gray-700 leading-relaxed mt-4">
             Please, take some moments to reflect on each question addressed and
-            try to be as sincere as possible. Your answers will remain
+            try to be as sincere as possible.We assure you that the gathered data 
+            is safe and will not be used for personal interest and Your answers will remain
             confidential and they will be only used in finding ways to improve
             the academic experience of our students in the future...
           </p>
