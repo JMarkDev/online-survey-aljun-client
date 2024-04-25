@@ -118,8 +118,19 @@ const Dashboard = () => {
       "Course",
       "Year Level",
       "Gender",
+      "Student Status",
       "Stress",
       "Experience Stress",
+      "Stress Impact",
+      "Stress Main Source",
+      "Coping Mechanism",
+      "Effective Coping Mechanism",
+      "work-life balance ",
+      "Seek support ",
+      "Attended Stress Management ",
+
+
+
     ];
     const dataRows = surveyData.map((response) => {
       return [
@@ -129,9 +140,16 @@ const Dashboard = () => {
         response.course,
         response.year_level,
         response.gender,
+        response.answers.question1[0],
         response.answers.question2[0],
         response.answers.question3[0],
-
+        response.answers.question4[0],
+        response.answers.question5[0],
+        response.answers.question6[0],
+        response.answers.question7[0],
+        response.answers.question8[0],
+        response.answers.question9[0],
+        response.answers.question10[0],
       ];
     });
 
