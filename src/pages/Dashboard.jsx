@@ -119,6 +119,7 @@ const Dashboard = () => {
       "Year Level",
       "Gender",
       "Stress",
+      "Experience Stress",
     ];
     const dataRows = surveyData.map((response) => {
       return [
