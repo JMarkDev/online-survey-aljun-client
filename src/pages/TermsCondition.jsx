@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import noticeImg from "../assets/exclamation-mark.png";
+import noticeImg from "../assets/exclamation-mark2.png";
 
 const TermsCondition = ({ openModal }) => {
   const [agree, setAgree] = useState(false);
