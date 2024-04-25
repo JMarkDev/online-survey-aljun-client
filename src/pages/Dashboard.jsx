@@ -132,24 +132,39 @@ const Dashboard = () => {
 
 
     ];
+      //   const formatFieldCsv = (field) => {
+      //     if (typeof field === 'string' && field.includes(",")) {
+      //         return `"${field}"`;
+      //     }
+      //     return field;
+      // }
+         const formatFieldCsv = (field) => {
+          if (/[,]/.test(field)) {
+            return `"${field}"`;
+          }
+          return field;
+         }
+
+      
+    
     const dataRows = surveyData.map((response) => {
       return [
-        response.fullname,
-        response.email,
-        response.age,
-        response.course,
-        response.year_level,
-        response.gender,
-        response.answers.question1,
-        response.answers.question2,
-        response.answers.question3,
-        response.answers.question4,
-        response.answers.question5,
-        response.answers.question6,
-        response.answers.question7,
-        response.answers.question8,
-        response.answers.question9,
-        response.answers.question10,
+       formatFieldCsv(response.fullname),
+       formatFieldCsv(response.email),
+       formatFieldCsv(response.age),
+       formatFieldCsv(response.course),
+       formatFieldCsv(response.year_level),
+       formatFieldCsv(response.gender),
+       formatFieldCsv(response.answers.question1),
+       formatFieldCsv(response.answers.question2),
+       formatFieldCsv(response.answers.question3),
+       formatFieldCsv(response.answers.question4),
+       formatFieldCsv(response.answers.question5),
+       formatFieldCsv(response.answers.question6),
+       formatFieldCsv(response.answers.question7),
+       formatFieldCsv(response.answers.question8),
+       formatFieldCsv(response.answers.question9),
+       formatFieldCsv(response.answers.question10),
       ];
     });
 
