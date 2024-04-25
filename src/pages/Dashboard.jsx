@@ -129,6 +129,8 @@ const Dashboard = () => {
         response.year_level,
         response.gender,
         response.answers.question2[0],
+        response.answers.question3[0],
+
       ];
     });
 
