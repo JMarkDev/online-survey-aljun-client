@@ -19,7 +19,14 @@ const TermsCondition = ({ openModal }) => {
     <div className="fixed inset-0 z-50 flex justify-center items-center overflow-y-auto bg-black bg-opacity-50">
       <div className="relative p-4 w-full max-w-xl">
         <div className="relative bg-white rounded-lg shadow p-6">
-          <img src={noticeImg} alt="" className="h-20 mb-10 m-auto" />
+          {/* Image container */}
+          <div className="relative">
+            <img src={noticeImg} alt="" className="h-20 mb-10 m-auto" />
+            {/* Letter above the image */}
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -mt-6 text-3xl font-bold text-gray-800">
+              Terms & Conditions
+            </div>
+          </div>
           <h1 className="text-2xl font-bold text-gray-800">Greetings User</h1>
           <p className="text-gray-700 leading-relaxed my-4">
             You are invited to participate in our student stress survey. We know
