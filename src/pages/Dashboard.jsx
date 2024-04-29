@@ -53,7 +53,6 @@ const Dashboard = () => {
     const fetchResponse = async () => {
       try {
         const response = await api.get("/survey/all");
-        console.log(response.data);
         setResponseCount(response.data.length);
         setSurveyData(response.data);
       } catch (error) {
@@ -302,11 +301,7 @@ const Dashboard = () => {
             </h1>
             <FilterComponents handleFilter={handleFilter} />
 
-            <Doughnut
-              surveyData={filterData}
-              // data={surveyData}
-              // calculateTotalOccurrences={calculateTotalOccurrences}
-            />
+            <Doughnut surveyData={filterData} />
           </div>
         </div>
         <div className="max-w-5xl mt-10 m-auto">
@@ -316,10 +311,7 @@ const Dashboard = () => {
             </h1>
             <FilterComponents handleFilter={handleFilterPieChart} />
 
-            <PieChartQ10
-              surveyData={filterPieChart}
-              // calculateTotalOccurrences={calculateTotalOccurrences}
-            />
+            <PieChartQ10 surveyData={filterPieChart} />
           </div>
         </div>
         <div className="max-w-5xl mt-10 m-auto">
@@ -329,10 +321,7 @@ const Dashboard = () => {
             </h1>
             <FilterComponents handleFilter={handleFilterFrequency} />
 
-            <DoughnutQuestion3
-              surveyData={filterFrequency}
-              // calculateTotalOccurrences={calculateTotalOccurrences}
-            />
+            <DoughnutQuestion3 surveyData={filterFrequency} />
           </div>
         </div>
         <div className="max-w-5xl mt-10 m-auto">
@@ -342,10 +331,7 @@ const Dashboard = () => {
             </h1>
             <FilterComponents handleFilter={handleFilterStress} />
 
-            <BarChartQ4
-              surveyData={filterStress}
-              // calculateTotalOccurrences={calculateTotalOccurrences}
-            />
+            <BarChartQ4 surveyData={filterStress} />
           </div>
         </div>
         <div className="max-w-5xl mt-10 m-auto">
@@ -355,10 +341,7 @@ const Dashboard = () => {
             </h1>
             <FilterComponents handleFilter={handleFilterMechanisms} />
 
-            <BarChartQ6
-              surveyData={filterMechamnisms}
-              // calculateTotalOccurrences={calculateTotalOccurrences}
-            />
+            <BarChartQ6 surveyData={filterMechamnisms} />
           </div>
         </div>
         <div className="max-w-5xl mt-10 m-auto">
@@ -368,10 +351,7 @@ const Dashboard = () => {
             </h1>
             <FilterComponents handleFilter={handleFilterSupport} />
 
-            <BarChartQ9
-              surveyData={filterSupport}
-              // calculateTotalOccurrences={calculateTotalOccurrences}
-            />
+            <BarChartQ9 surveyData={filterSupport} />
           </div>
         </div>
       </div>
