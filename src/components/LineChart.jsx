@@ -53,8 +53,7 @@ const Analytics = ({ surveyData }) => {
 
   function downloadCSV() {
     const headers = [
-      "Full Name",
-      "Email",
+      "Response",
       "Age",
       "Course",
       "Year Level",
@@ -78,10 +77,9 @@ const Analytics = ({ surveyData }) => {
       return field;
     };
 
-    const dataRows = surveyData.map((response) => {
+    const dataRows = surveyData.map((response, index) => {
       return [
-        formatFieldCsv(response.fullname),
-        formatFieldCsv(response.email),
+        formatFieldCsv(index + 1),
         formatFieldCsv(response.age),
         formatFieldCsv(response.course),
         formatFieldCsv(response.year_level),

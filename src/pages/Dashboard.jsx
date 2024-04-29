@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [irregular, setIrregular] = useState(0);
   const [filterData, setFilterData] = useState([]);
   const [filterPieChart, setFilterPieChart] = useState([]);
+  const [filterFrequency, setfilterFrequency] = useState([]);
 
   useEffect(() => {
     const getStudentStatus = () => {
@@ -123,6 +124,38 @@ const Dashboard = () => {
     handleFilterPieChart();
   }, [surveyData]);
 
+  const handleFilterFrequency = (minAge, maxAge, course, yearLevel, gender) => {
+    if (!minAge && !maxAge && !course && !yearLevel && !gender) {
+      setfilterFrequency(surveyData);
+    }
+    const filterDataSurvey = surveyData.filter((data) => {
+      const age = data.age;
+
+      if (age < minAge || age > maxAge) {
+        return false;
+      }
+
+      if (course && data.course !== course) {
+        return false;
+      }
+
+      if (yearLevel && data.year_level !== yearLevel) {
+        return false;
+      }
+
+      if (gender && data.gender !== gender) {
+        return false;
+      }
+
+      return true;
+    });
+    setfilterFrequency(filterDataSurvey);
+  };
+
+  useEffect(() => {
+    handleFilterFrequency();
+  }, [surveyData]);
+
   // Function to calculate total occurrences of an answer text for a specific question
   const calculateTotalOccurrences = (questionId, answerText) => {
     // Initialize total occurrences count
@@ -187,7 +220,7 @@ const Dashboard = () => {
             <Doughnut
               surveyData={filterData}
               // data={surveyData}
-              calculateTotalOccurrences={calculateTotalOccurrences}
+              // calculateTotalOccurrences={calculateTotalOccurrences}
             />
           </div>
         </div>
@@ -200,7 +233,7 @@ const Dashboard = () => {
 
             <PieChartQ10
               surveyData={filterPieChart}
-              calculateTotalOccurrences={calculateTotalOccurrences}
+              // calculateTotalOccurrences={calculateTotalOccurrences}
             />
           </div>
         </div>
@@ -209,11 +242,11 @@ const Dashboard = () => {
             <h1 className="text-lg p-6 font-semibold text-gray-800 mb-2">
               Frequency of Stress Experience
             </h1>
-            <FilterComponents handleFilter={handleFilter} />
+            <FilterComponents handleFilter={handleFilterFrequency} />
 
             <DoughnutQuestion3
-              surveyData={surveyData}
-              calculateTotalOccurrences={calculateTotalOccurrences}
+              surveyData={filterFrequency}
+              // calculateTotalOccurrences={calculateTotalOccurrences}
             />
           </div>
         </div>
