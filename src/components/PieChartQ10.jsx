@@ -3,28 +3,32 @@ import Chart from "react-apexcharts";
 import questions from "../questions/question.json";
 
 export default function ApexChart({ surveyData }) {
-  const courses = [
-    "BSCS",
-    "ACT",
-    "BSED",
-    "BEED",
-    "BSPOLSCIE",
-    "BSCRIM",
-    "AB FIL",
-    "BSSW",
-  ];
+  const calculateTotalOccurrences = (questionId, answerText) => {
+    // Initialize total occurrences count
+    let totalOccurrences = 0;
 
-  // Function to calculate total occurrences of an answer text for a specific question
-  const calculateTotalOccurrences = (course) => {
-    const filteredData = surveyData.filter((entry) => {
-      return entry.course === course && entry.answers.question10[0] === "Yes";
+    // Loop through surveyData to count occurrences
+    surveyData.forEach((entry) => {
+      // Check if the entry has an answer for the specified questionId and it matches the answerText
+      if (
+        entry.answers[questionId] &&
+        entry.answers[questionId].includes(answerText)
+      ) {
+        // Increment totalOccurrences if the answer matches
+        totalOccurrences++;
+      }
     });
 
-    return filteredData.length;
+    return totalOccurrences;
   };
+  const question1 = questions.questions[9];
+  const questionId = question1.id;
+  const answerTexts = question1.choices;
 
   // Calculate total occurrences for each answer text in the question
-  const series = courses.map((course) => calculateTotalOccurrences(course));
+  const series = answerTexts.map((answerText) =>
+    calculateTotalOccurrences(questionId, answerText)
+  );
   // Define a custom color palette for the chart
   const customColors = [
     "#008FFB",
@@ -43,7 +47,7 @@ export default function ApexChart({ surveyData }) {
       type: "pie",
     },
     colors: customColors,
-    labels: courses,
+    labels: answerTexts,
   };
 
   return (
