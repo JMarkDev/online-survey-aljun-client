@@ -13,17 +13,6 @@ import Dropdown from "../components/Dropdown";
 import api from "../api/api";
 
 const Analytics = ({ surveyData }) => {
-  const COLORS = [
-    "#e88245",
-    "#8daa3b",
-    "#1f82c1",
-    "#9333ea",
-    "#ff5733",
-    "#6c5b7b",
-    "#ffcc29",
-    "#00a8cc",
-  ];
-
   const graphColors = [
     "#e88245",
     "#8daa3b",
@@ -70,15 +59,43 @@ const Analytics = ({ surveyData }) => {
       "Course",
       "Year Level",
       "Gender",
+      "Student Status",
+      "Stress",
+      "Experience Stress",
+      "Stress Impact",
+      "Stress Main Source",
+      "Coping Mechanism",
+      "Effective Coping Mechanism",
+      "work-life balance ",
+      "Seek support ",
+      "Attended Stress Management ",
     ];
+
+    const formatFieldCsv = (field) => {
+      if (/[,]/.test(field)) {
+        return `"${field}"`;
+      }
+      return field;
+    };
+
     const dataRows = surveyData.map((response) => {
       return [
-        response.fullname,
-        response.email,
-        response.age,
-        response.course,
-        response.year_level,
-        response.gender,
+        formatFieldCsv(response.fullname),
+        formatFieldCsv(response.email),
+        formatFieldCsv(response.age),
+        formatFieldCsv(response.course),
+        formatFieldCsv(response.year_level),
+        formatFieldCsv(response.gender),
+        formatFieldCsv(response.answers.question1),
+        formatFieldCsv(response.answers.question2),
+        formatFieldCsv(response.answers.question3),
+        formatFieldCsv(response.answers.question4),
+        formatFieldCsv(response.answers.question5),
+        formatFieldCsv(response.answers.question6),
+        formatFieldCsv(response.answers.question7),
+        formatFieldCsv(response.answers.question8),
+        formatFieldCsv(response.answers.question9),
+        formatFieldCsv(response.answers.question10),
       ];
     });
 
@@ -96,22 +113,7 @@ const Analytics = ({ surveyData }) => {
   }
 
   return (
-    <div
-      style={
-        {
-          // maxWidth: "100%",
-          // background: "white",
-          // overflowX: "auto",
-          // display: "flex",
-          // justifyContent: "center",
-          // alignItems: "center",
-          // margin: "auto",
-          // marginTop: "20px",
-          // padding: "10px",
-        }
-      }
-      className="dash  w-auto overflow-x-auto"
-    >
+    <div className="dash  w-auto overflow-x-auto">
       <div className="flex flex-col md:flex-row md:gap-6 mt-[16px] w-full">
         <div className="basis-[60%] border-2 border-gray dark:border-white bg-white shadow-md cursor-pointer rounded-[4px] dark:bg-black mb-4 md:mb-0 lg:mb-0 lg:mr-4">
           <div className="bg-gray-500 py-[15px] px-[20px] dark:border-white  mb-[20px]">
