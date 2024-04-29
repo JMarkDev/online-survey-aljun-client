@@ -2,8 +2,27 @@ import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import questions from "../questions/question.json";
 
-const BarChart = ({ calculateTotalOccurrences, surveyData }) => {
+const BarChart = ({ surveyData }) => {
   const [series, setSeries] = useState([]);
+
+  const calculateTotalOccurrences = (questionId, answerText) => {
+    // Initialize total occurrences count
+    let totalOccurrences = 0;
+
+    // Loop through surveyData to count occurrences
+    surveyData.forEach((entry) => {
+      // Check if the entry has an answer for the specified questionId and it matches the answerText
+      if (
+        entry.answers[questionId] &&
+        entry.answers[questionId].includes(answerText)
+      ) {
+        // Increment totalOccurrences if the answer matches
+        totalOccurrences++;
+      }
+    });
+
+    return totalOccurrences;
+  };
 
   useEffect(() => {
     // Calculate series only when surveyData changes

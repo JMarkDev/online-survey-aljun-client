@@ -18,6 +18,9 @@ const Dashboard = () => {
   const [filterData, setFilterData] = useState([]);
   const [filterPieChart, setFilterPieChart] = useState([]);
   const [filterFrequency, setfilterFrequency] = useState([]);
+  const [filterStress, setFilterStress] = useState([]);
+  const [filterMechamnisms, setfilterMechamnisms] = useState([]);
+  const [filterSupport, setfilterSupport] = useState([]);
 
   useEffect(() => {
     const getStudentStatus = () => {
@@ -156,25 +159,107 @@ const Dashboard = () => {
     handleFilterFrequency();
   }, [surveyData]);
 
-  // Function to calculate total occurrences of an answer text for a specific question
-  const calculateTotalOccurrences = (questionId, answerText) => {
-    // Initialize total occurrences count
-    let totalOccurrences = 0;
+  const handleFilterStress = (minAge, maxAge, course, yearLevel, gender) => {
+    if (!minAge && !maxAge && !course && !yearLevel && !gender) {
+      setFilterStress(surveyData);
+    }
+    const filterDataSurvey = surveyData.filter((data) => {
+      const age = data.age;
 
-    // Loop through surveyData to count occurrences
-    surveyData.forEach((entry) => {
-      // Check if the entry has an answer for the specified questionId and it matches the answerText
-      if (
-        entry.answers[questionId] &&
-        entry.answers[questionId].includes(answerText)
-      ) {
-        // Increment totalOccurrences if the answer matches
-        totalOccurrences++;
+      if (age < minAge || age > maxAge) {
+        return false;
       }
-    });
 
-    return totalOccurrences;
+      if (course && data.course !== course) {
+        return false;
+      }
+
+      if (yearLevel && data.year_level !== yearLevel) {
+        return false;
+      }
+
+      if (gender && data.gender !== gender) {
+        return false;
+      }
+
+      return true;
+    });
+    setFilterStress(filterDataSurvey);
   };
+
+  useEffect(() => {
+    handleFilterStress();
+  }, [surveyData]);
+
+  const handleFilterMechanisms = (
+    minAge,
+    maxAge,
+    course,
+    yearLevel,
+    gender
+  ) => {
+    if (!minAge && !maxAge && !course && !yearLevel && !gender) {
+      setfilterMechamnisms(surveyData);
+    }
+    const filterDataSurvey = surveyData.filter((data) => {
+      const age = data.age;
+
+      if (age < minAge || age > maxAge) {
+        return false;
+      }
+
+      if (course && data.course !== course) {
+        return false;
+      }
+
+      if (yearLevel && data.year_level !== yearLevel) {
+        return false;
+      }
+
+      if (gender && data.gender !== gender) {
+        return false;
+      }
+
+      return true;
+    });
+    setfilterMechamnisms(filterDataSurvey);
+  };
+
+  useEffect(() => {
+    handleFilterMechanisms();
+  }, [surveyData]);
+
+  const handleFilterSupport = (minAge, maxAge, course, yearLevel, gender) => {
+    if (!minAge && !maxAge && !course && !yearLevel && !gender) {
+      setfilterSupport(surveyData);
+    }
+    const filterDataSurvey = surveyData.filter((data) => {
+      const age = data.age;
+
+      if (age < minAge || age > maxAge) {
+        return false;
+      }
+
+      if (course && data.course !== course) {
+        return false;
+      }
+
+      if (yearLevel && data.year_level !== yearLevel) {
+        return false;
+      }
+
+      if (gender && data.gender !== gender) {
+        return false;
+      }
+
+      return true;
+    });
+    setfilterSupport(filterDataSurvey);
+  };
+
+  useEffect(() => {
+    handleFilterSupport();
+  }, [surveyData]);
 
   return (
     <>
@@ -255,9 +340,11 @@ const Dashboard = () => {
             <h1 className="text-lg font-semibold text-gray-800 mb-2">
               Sources of Stress in Life
             </h1>
+            <FilterComponents handleFilter={handleFilterStress} />
+
             <BarChartQ4
-              surveyData={surveyData}
-              calculateTotalOccurrences={calculateTotalOccurrences}
+              surveyData={filterStress}
+              // calculateTotalOccurrences={calculateTotalOccurrences}
             />
           </div>
         </div>
@@ -266,11 +353,11 @@ const Dashboard = () => {
             <h1 className="text-lg font-semibold text-gray-800 mb-2">
               Preferred Coping Mechanisms for Stress
             </h1>
-            <FilterComponents handleFilter={handleFilter} />
+            <FilterComponents handleFilter={handleFilterMechanisms} />
 
             <BarChartQ6
-              surveyData={surveyData}
-              calculateTotalOccurrences={calculateTotalOccurrences}
+              surveyData={filterMechamnisms}
+              // calculateTotalOccurrences={calculateTotalOccurrences}
             />
           </div>
         </div>
@@ -279,11 +366,11 @@ const Dashboard = () => {
             <h1 className="text-lg font-semibold text-gray-800 mb-2">
               Frequency of Seeking Support When Stressed
             </h1>
-            <FilterComponents handleFilter={handleFilter} />
+            <FilterComponents handleFilter={handleFilterSupport} />
 
             <BarChartQ9
-              surveyData={surveyData}
-              calculateTotalOccurrences={calculateTotalOccurrences}
+              surveyData={filterSupport}
+              // calculateTotalOccurrences={calculateTotalOccurrences}
             />
           </div>
         </div>
